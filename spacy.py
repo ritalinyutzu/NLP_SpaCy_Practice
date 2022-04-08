@@ -3,18 +3,20 @@ import spacy
 nlp = spacy.blank("zh") #創建一個空白的中文nlp對象
 doc = nlp("這是一個句子。")
 print(doc.text)
+
 '''result>>>這是一個句子。'''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 #英文
 import spacy
 nlp = spacy.blank("en") #創建一個空白的英文nlp對象
 doc = nlp("This is a sentence.")
 print(doc.text)
+
 '''result>>>This is a sentence.'''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 import spacy
 nlp = spacy.blank("zh")
@@ -31,6 +33,7 @@ print(laohu.text)
 #擷取doc中"老虎和獅子"的部分(不包含。)
 laohuheshizhi = doc[3:8]
 print(laohuheshizhi.text)
+
 '''result>>>
 0 我
 1 喜
@@ -45,7 +48,7 @@ print(laohuheshizhi.text)
 老虎和獅子
 '''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 import spacy
 nlp = spacy.blank("zh")
@@ -65,12 +68,13 @@ for token in doc:
         #檢測下一個詞符是否組成一個數字
         if next_token.like_num:
             print("Price found:",next_token.text)
+
 '''result>>>
 Price found: 2
 Price found: 5
 '''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 import spacy
 
@@ -95,6 +99,7 @@ for token in doc:
 
 for ent in doc.ents:
     print(ent.text, ent.label_)
+
 '''result>>>
 Rita is a happy people.
 Rita        PROPN     nsubj     
@@ -105,7 +110,7 @@ people      NOUN      attr
 .           PUNCT     punct 
 '''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 import spacy
 nlp = spacy.load('zh_core_web_sm')
@@ -117,9 +122,10 @@ doc = nlp(text)
 #對識別出的實體進行遍歷
 for ent in doc.ents:
     print(ent.text, ent.label_) #Print出實體文本及標注
+
 '''result>>> 第一 ORDINAL'''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 import spacy
 nlp = spacy.load("zh_core_web_sm")
@@ -141,6 +147,7 @@ iPhone_14 = doc[12:13]
 
 #印出Span的文本
 print("Missing entity:", iPhone_14.text)
+
 '''result>>>
 0 蘋果
 1 公布
@@ -164,7 +171,7 @@ print("Missing entity:", iPhone_14.text)
 Missing entity: iPhone
 '''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 #試試使用SpaCy基於規則的Matcher, 寫一個可以匹配到文本中"iPhone 14" 這個短語的模板
 import spacy
@@ -187,9 +194,10 @@ matcher.add("iPhone_14_pattern",[pattern])
 #在doc中使用matcher
 matches = matcher(doc)
 print("Matcher:",[doc[start:end].text for match_id, start, end in matches])
+
 '''result>>>Matcher: ['iPhone 14']'''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 #試著用不同的詞符屬性和運算符號寫一些更複雜的匹配模板
 import spacy
@@ -215,6 +223,7 @@ print("Total matches found:",len(matches))
 #遍歷所有的匹配,再印出span的文本
 for match_id, start, end in matches:
     print("Match found:", doc[start:end].text)
+
 '''result>>>
 Total matches found: 3
 Match found: IOS 7
@@ -222,7 +231,7 @@ Match found: IOS 11
 Match found: IOS 10
 '''
 
-#-----------------------------------------
+#-----------------------------------------我是分隔線
 
 #寫一個模板,只匹配到不同格式的"Download"詞(詞符的英文原詞是"Download"),後面跟著一個註記POS詞性"PROPN"(專有名詞)的詞符
 import spacy
@@ -248,6 +257,7 @@ print("Total matches found:",len(matches))
 #遍歷所有的匹配,印出Span的文本
 for match_id, start, end in matches:
     print("Match found:",doc[start:end].text)
+
 '''result>>>
 Total matches found: 2
 Match found: 下載艾爾
