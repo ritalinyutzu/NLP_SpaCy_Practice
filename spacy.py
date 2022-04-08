@@ -263,4 +263,3 @@ Total matches found: 2
 Match found: 下載艾爾
 Match found: 下載TEJ
 '''
-#三小，我的艾爾登法環為什麼只剩下艾爾，誰可以跟我說哪邊初四？
