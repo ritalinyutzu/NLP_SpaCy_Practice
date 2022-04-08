@@ -435,3 +435,15 @@ Sally PERSON
 ''' #希望這招撩妹能成功
 
 #-----------------------------------------我是分隔線-----------------------------------------
+
+import spacy
+
+nlp = spacy.load('en_core_web_sm')
+doc = nlp('Sally is a beautiful girl.')
+
+for token in doc:
+    if token.pos_ == "PROPN":
+        if doc[token.i + 1].pos_ == "AUX":
+            print("I find a beautiful girl in Taiwan:", token.text)
+    
+'''result>>>I find a beautiful girl in Taiwan: Sally'''
