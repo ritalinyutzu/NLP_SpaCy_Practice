@@ -263,3 +263,137 @@ Total matches found: 2
 Match found: 下載艾爾
 Match found: 下載TEJ
 '''
+
+#-----------------------------------------我是分隔線
+
+#寫一個模板,匹配到形容詞("adj")後面跟著一兩個名詞("noun")
+import spacy
+from spacy.matcher import Matcher
+
+nlp = spacy.load("zh_core_web_sm")
+matcher = Matcher(nlp.vocab)
+
+doc = nlp(
+    "宮三餐廳的特色包含了好吃餐點、優秀服務、及漂亮店員。"
+)
+
+#寫一個模板:形容詞+一或兩個名詞
+pattern = [{"POS":"ADJ"},{"POS":"NOUN"},{"POS":"NOUN"},{"OP":"?"}]
+
+#把模板加入到matcher中,並將matcher應用到doc上面
+matcher.add("ADJ_NOUN_PATTERN",[pattern])
+matches = matcher(doc)
+print("Total matches found:",len(matches))
+
+#遍歷所有的匹配,印出span的文本
+for match_id, start, end in matches:
+    print("Match found:",doc[start:end].text)
+
+'''result>>>Total matches found: 0''' #我也想知道為毛什麼都沒match到???算了,可能是因為中文吧
+
+#-----------------------------------------我是分隔線
+
+#在nlp.vocab.strings中查找字符串"cat"來獲得hash值(哈希值)
+import spacy
+
+nlp = spacy.load('en_core_web_sm')
+doc = nlp("I have a cat.")
+
+#查詢cat的hash值
+cat_hash = nlp.vocab.strings["cat"]
+print(cat_hash)
+
+#查找cat_hash來得到字符串
+cat_string = nlp.vocab.strings[cat_hash]
+print(cat_string)
+
+'''result>>>
+5439657043933447811
+cat
+'''
+
+#-----------------------------------------我是分隔線
+
+#上面的中文版,可以發現貓和cat的hash值不一樣(繁體中文和英文的差別)
+#在nlp.vocab.strings中查找字符串"cat"來獲得hash值(哈希值)
+import spacy
+
+nlp = spacy.load('zh_core_web_sm')
+doc = nlp("我養了一隻貓.")
+
+#查詢cat的hash值
+cat_hash = nlp.vocab.strings["貓"]
+print(cat_hash)
+
+#查找cat_hash來得到字符串
+cat_string = nlp.vocab.strings[cat_hash]
+print(cat_string)
+
+'''result>>>
+2840559385213016379
+貓
+'''
+
+#-----------------------------------------我是分隔線
+
+#在nlp.vocab.strings中查找人物來得到hash值,查找這個hash值來返還原本的字符串
+import spacy
+
+nlp = spacy.load("zh_core_web_sm")
+doc = nlp("蔡依林是一個明星。") #不要找小咖
+
+#查找標籤是"人物"的字符串的hash值
+person_hash = nlp.vocab.strings["人物"]
+print(person_hash)
+
+#查找person_hash來拿到字符串
+person_string = nlp.vocab.strings[person_hash]
+print(person_string)
+
+'''result>>>
+16486493800568926464
+人物
+'''
+
+#-----------------------------------------我是分隔線
+
+#樓上的英文版
+import spacy
+
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("Will Smith is a super star") #不要找小咖
+
+#查找標籤是"PERSON"的字符串的hash值
+person_hash = nlp.vocab.strings["PERSON"]
+print(person_hash)
+
+#查找person_hash來拿到字符串
+person_string = nlp.vocab.strings[person_hash]
+print(person_string)
+
+'''result>>>
+380
+PERSON
+'''
+
+#-----------------------------------------我是分隔線
+
+#試試看創建一個DOC
+#從spacy.token中導入Doc
+#用words和spaces創建一個Doc,記得把vocab傳進去
+
+import spacy
+nlp = spacy.blank("en")
+
+#導入Doc
+from spacy.tokens import Doc
+
+#目標文本: "Rita is cute!"
+words = ["Rita","is","cute","!"]
+spaces = [True,True,False,False]
+
+#用words和spaces創建一個Doc
+doc = Doc(nlp.vocab, words = words, spaces = spaces)
+print(doc.text)
+
+'''result>>>Rita is cute!''' #Rita很滿意!
