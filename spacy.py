@@ -401,3 +401,37 @@ print(doc.text)
 '''result>>>Rita is cute!''' #Rita很滿意!
 
 #-----------------------------------------我是分隔線-----------------------------------------
+
+#從頭開始練習Doc(文件) spans(跨度) entities(實體)
+#動手創建Doc和Span實例,然後重新更新命名實體
+
+import spacy
+nlp = spacy.blank("en")
+
+#導入Doc和Span類
+from spacy.tokens import Doc, Span
+
+words = ["I","Love","Sally","Wang"]
+spaces = [False, False, False, False]
+
+#用words和spaces創建一個doc
+doc = Doc(nlp.vocab, words = words, spaces = spaces)
+print(doc.text)
+
+#為doc中的"Sally Wang"創建一個span, 並賦予其"person"的標籤
+span = Span(doc, 2, 3, label = "PERSON" )
+print(span.text, span.label_)
+
+#把此Span加到Doc的實體中
+doc.ents = [span]
+
+#print出所有實體的文本和標籤
+print([(ent.text,ent.label_) for ent in doc.ents])
+
+'''result>>>
+ILoveSallyWang
+Sally PERSON
+[('Sally', 'PERSON')] 
+''' #希望這招撩妹能成功
+
+#-----------------------------------------我是分隔線-----------------------------------------
