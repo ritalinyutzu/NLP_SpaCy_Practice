@@ -447,3 +447,263 @@ for token in doc:
             print("I find a beautiful girl in Taiwan:", token.text)
     
 '''result>>>I find a beautiful girl in Taiwan: Sally'''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+import spacy
+
+nlp = spacy.load('zh_core_web_sm')
+doc = nlp("台北是一個討厭的城市")
+
+for token in doc:
+    if token.pos_ == "PROPN":
+        if doc[token.i + 1].pos_ == "VERB":
+            print("全台灣最愛下雨的城市:", token.text)
+            
+'''result>>>全台灣最愛下雨的城市: 台北'''
+
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+#使用更大的中文/英文流程,該模型大約有2萬個詞彚Vector,模型要提前安裝好
+#在cmd輸入 python -m spacy download zh_core_web_md
+#在cmd輸入 python -m spacy download en_core_web_md
+
+import spacy
+
+#讀取zh_core_web_md流程
+nlp = spacy.load("zh_core_web_md")
+
+#處理文本
+doc = nlp("兩隻貓咪跑得快")
+
+for token in doc:
+    print(token.text)
+
+#獲取詞符"貓咪"的vector
+cat_vector = doc[2].vector
+print(cat_vector)
+
+'''result>>>
+兩隻
+貓咪
+跑
+得
+快
+[-2.8459    0.32048  -0.30816  -0.93138  -0.28018   1.8831   -1.8911
+  5.5937   -1.423     1.6578   -0.58878   4.7068   -1.0706    3.2047
+ -3.5505    0.57562  -4.0097    3.1418    2.3283    2.079     1.6681
+ -3.1713   -2.7232    2.4075   -1.5068    3.4791    0.2104    1.5859
+ -4.3877    3.5712   -6.8421    1.6928   -0.84454  -0.37157  -1.5298
+ -1.5461    2.5694   -0.86163   2.508    -4.0392   -1.9058    0.98413
+ -0.34074   0.93309  -2.3112    1.9918    4.6978    1.4879    0.98123
+  2.0115   -1.8009    3.0979   -2.4079    3.5671    0.50252  -1.0893
+ -1.9335    2.6888    0.073567 -0.13746  -0.23608   3.7539    4.1994
+ -0.76696  -6.4953   -1.268    -2.1181    6.2575   -6.2589    2.023
+ -0.43734   4.703    -2.5326    3.623    -5.5291    2.3048   -3.3765
+ -7.5948   -7.5931   -1.4838   -0.83584  -3.7131    3.0294   -4.0067
+ -2.0883   -1.6006   -0.64951  -0.41297  -1.3434    0.56647  -4.082
+ -0.49194   1.0295   -1.3925    1.5148   -0.82669  -0.28327  -3.5983
+ -2.4945    2.1808    3.3454   -0.97422  -1.651    -3.0983    2.5726
+  4.8229   -0.58639   1.3523   -4.6994   -1.4542   -0.67998  -0.23783
+  4.058     0.79777   3.1005    1.469     0.76425   4.4673    3.3695
+ -2.049    -4.7043    3.4321    0.14609   0.47851   2.6236    7.3958
+ -1.1071   -3.6781    0.045345 -3.8379   -2.001    -0.87283   5.2053
+ -1.8151   -0.73952   5.0747   -1.4508   -2.8353    3.2562   -1.9893
+  0.53765   3.6111   -0.69568  -4.0102    1.4874    2.4547   -1.2718
+ -1.3292    4.8522    2.1334    2.693     2.8358    1.8752   -2.1354
+ -5.0739    4.5413   -0.2431    4.3455    5.9955   -5.4541   -2.1903
+ -4.3887   -4.7135    0.92903   4.6048    0.34937  -3.519     2.0599
+  0.0776    0.71868   3.4485    1.7418   -6.4764    7.0633   -2.4193
+ -0.71579   2.2805    5.0837   -6.1097   -2.5283    1.7687    0.93335
+  0.71355  -0.07924   3.7854   -2.8356    0.80234   1.87      2.2274
+ -2.7812    1.5416   -0.099173  0.9011    0.80188   0.26838   2.831
+  5.0987   -1.3956    3.6094    3.8579   -6.039     2.079    -2.5081
+  2.2117    0.085181  1.8744   -2.7273    0.1034    1.0134   -0.22146
+  4.0682   -0.68277  -0.59248   3.463    -4.5475    5.9292   -0.22155
+  4.1383   -1.9925    1.3171    4.4531    8.3175   -0.59322   3.78
+  0.2039    4.2507   -0.50988   0.56524   2.6006   -0.24982   0.25998
+  0.044752 -1.1434    0.80015   4.1431   -0.98096   4.3174    1.2404
+ -2.488     4.5906    4.9128    1.0712    0.2736    0.23919   2.1338
+  3.3499   -4.8238    1.3999   -1.7971   -0.62635  -2.6744    4.486
+  3.3492   -0.39178   0.925     3.1327    2.5609   -0.946     0.51222
+ -6.0145    6.727     5.05     -2.9908    0.98053   1.5935   -2.2211
+ -0.17363   3.1939   -4.3147   -5.1022   -4.6016   -5.8662    2.9769
+  1.5749   -1.8924    2.8187   -1.6992    0.29212   3.18      2.2629
+ -1.9054   -1.2447   -0.52973  -2.573     0.77359  -3.8377   -0.62775
+  1.9443    0.24332  -0.88069   0.7388   -0.030259  0.82479   4.0046
+  2.1749    7.082    -0.58326   1.6944    2.7205    3.5291  ]
+  '''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+#練習使用SpaCy中的similarity方法來比較Doc,Token,Span得到相似分數
+#使用doc.similarity方法來比較doc1和doc2的相似度,並print出結果
+
+import spacy
+
+nlp = spacy.load("zh_core_web_md")
+
+#使用當代電影大師 - 你說台北的天氣好冷,來做個sample
+doc1 = nlp("你說台北的天氣好冷")
+doc2 = nlp("冷冷的剛好降低你的體溫")
+
+#獲取doc1/doc2的相似度
+similarity = doc1.similarity(doc2)
+print(similarity)
+
+'''result>>> 0.6826446632529931 ''' #還滿高的耶,酷!
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+#使用token.similarity方法來比較doc1/doc2的相似度並打印結果
+import spacy
+
+nlp = spacy.load("zh_core_web_md")
+
+doc = nlp("美女和辣妹")
+
+for i, token in enumerate(doc):
+    print(i,token.text)
+
+token1, token2 = doc[0], doc[2]
+
+#獲取詞符"美女"和"辣妹"的相似度
+similarity = token1.similarity(token2)
+print(similarity)
+
+'''result>>>
+0 美女
+1 和
+2 辣妹
+0.5233612656593323
+'''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+import spacy
+
+nlp = spacy.load("zh_core_web_md")
+
+doc = nlp("這是一部不錯的電影,看完我們去吃了一間很好吃的餐廳")
+
+for i, token in enumerate(doc):
+    print(i,token.text)
+    
+span1 = doc[4:8] #print(span1) 發現要多取一根電線桿,不能只取4:7,要取到4:8,可以印出來看看做實驗
+span2 = doc[17:21] #print(span2) 發現要多取一根電線桿,不能只取17:20,要取到17:21,可以印出來看看做實驗
+
+#獲取兩個span的相似度 (不錯的電影vs很好吃的餐廳)
+similarity = span1.similarity(span2)
+print(similarity)
+
+'''result>>>
+0 這
+1 是
+2 一
+3 部
+4 不
+5 錯
+6 的
+7 電影
+8 ,
+9 看
+10 完
+11 我
+12 們去
+13 吃
+14 了
+15 一
+16 間
+17 很
+18 好吃
+19 的
+20 餐廳
+0.6407151222229004
+'''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+#讀取zh_core_web_sm流程來創建nlp sample
+#用nlp.pipe_names來印出流程組件的名字
+#用nlp.pipeline來印出(name,component)元件的完整流程
+
+import spacy
+
+#讀取
+nlp = spacy.load("zh_core_web_sm")
+
+#印出流程組件的名字
+print(nlp.pipe_names)
+
+#應該不用說惹,印出來看看
+print(nlp.pipeline)
+
+#當不確定當前的流程時,可以隨時用nlp.pipe_names或nlp.pipeline來檢查當下的流程!
+
+'''result>>>
+['tok2vec', 'tagger', 'parser', 'attribute_ruler', 'ner']
+[('tok2vec', <spacy.pipeline.tok2vec.Tok2Vec object at 0x000001A486A96708>), ('tagger', <spacy.pipeline.tagger.Tagger object at 0x000001A486A96348>), ('parser', <spacy.pipeline.dep_parser.DependencyParser object at 0x000001A492EE99E8>), ('attribute_ruler', <spacy.pipeline.attributeruler.AttributeRuler object at 0x000001A4DEDCEDC8>), ('ner', <spacy.pipeline.ner.EntityRecognizer object at 0x000001A492EE9C18>)]
+'''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
+#訂製化流程組件
+import spacy
+from spacy.language import Language
+
+#定義訂製化組件
+@Language.component("length_component")
+def length_component_function(doc):
+    doc_length = len(doc) #獲取doc的長度
+    print(f"This document is {doc_length} tokens long.")
+    return doc #返回doc
+
+nlp = spacy.load("zh_core_web_sm") #讀取小規模的中文流程
+
+nlp.add_pipe("length_component", first = True) #將組件加入到流程的最前面,印出流程組件名稱
+print(nlp.pipe_names)
+
+doc = nlp("這是一隻貓咪。") #處理一段文本
+
+'''result>>>
+['length_component', 'tok2vec', 'tagger', 'parser', 'attribute_ruler', 'ner']
+This document is 6 tokens long.
+'''
+#-----------------------------------------我是分隔線-----------------------------------------
+
+import spacy
+from spacy.language import Language
+from spacy.matcher import PhraseMatcher
+from spacy.tokens import Span
+
+nlp = spacy.load("zh_core_web_sm")
+animals = ["柴柴","貓貓","碰企","勞贖","腔棘魚"] 
+animal_patterns = list(nlp.pipe(animals))
+print("animal_patterns:", animal_patterns)
+matcher = PhraseMatcher(nlp.vocab)
+matcher.add("ANIMAL",animal_patterns)
+
+#定義訂製化組件
+@Language.component("animal_component")
+def language_component_function(doc):
+    matches = matcher(doc) #把matcher應用到doc上
+    spans = [Span(doc, start, end, label = "ANIMAL") for match_id, start, end in matches] #為每一個匹配結果生成一個Span並賦予"animal"的標籤
+    doc.ents = spans #用匹配到的span覆蓋doc.ents
+    return doc
+
+#把組件加入到流程中,緊跟在"ner"組件後面
+nlp.add_pipe("animal_component", after = "ner")
+print(nlp.pipe_names)
+
+#處理文本,印出doc.ents的文本和標籤
+doc = nlp("我養了一隻貓貓叫腔棘魚")
+print([(ent.text, ent.label_) for ent in doc.ents])
+
+'''result>>>
+animal_patterns: [柴柴, 貓貓, 碰企, 勞贖, 腔棘魚]
+['tok2vec', 'tagger', 'parser', 'attribute_ruler', 'ner', 'animal_component']
+[('貓貓', 'ANIMAL'), ('腔棘魚', 'ANIMAL')]
+'''
+
+#-----------------------------------------我是分隔線-----------------------------------------
+
